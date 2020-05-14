@@ -10,6 +10,13 @@ const server = express();
 server.use(helmet());
 server.use(cors());
 server.use(bodyParser.json());
+server.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", '*');
+    res.header("Access-Control-Allow-Credentials", true);
+    res.header('Access-Control-Allow-Methods', 'POST');
+    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+    next();
+});
 
 server.post('/send', (req, res) => {
     const transporter = nodemailer.createTransport({
